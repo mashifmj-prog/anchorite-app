@@ -119,17 +119,17 @@
     </div>
 
     <script>
-        // Dark/Light Mode Toggle
-        const toggleButton = document.querySelector('button');
-        toggleButton.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            const icon = toggleButton.querySelector('i');
-            if (document.documentElement.classList.contains('dark')) {
-                icon.className = 'fas fa-sun text-yellow-400';
-            } else {
-                icon.className = 'fas fa-moon text-gray-600';
-            }
-        });
+// Dark/Light Mode Toggle - FIXED VERSION
+const toggleButton = document.querySelector('nav button');
+toggleButton.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    const icon = toggleButton.querySelector('i');
+    if (document.documentElement.classList.contains('dark')) {
+        icon.className = 'fas fa-sun text-yellow-400';
+    } else {
+        icon.className = 'fas fa-moon text-gray-600';
+    }
+});
 
         // Curated Content Libraries
         const jokes = [
