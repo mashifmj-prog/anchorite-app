@@ -16,7 +16,7 @@
                     <h1 class="text-xl font-bold text-gray-900 dark:text-white">Anchorite</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
                     </button>
                 </div>
@@ -28,7 +28,21 @@
     <div class="max-w-4xl mx-auto py-8 px-4">
         <!-- Library Section -->
         <section id="library-section" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Your Library</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Your Library</h2>
+                <div class="relative">
+                    <select id="book-select" class="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 pr-8 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Add more books...</option>
+                        <option value="exodus">Exodus</option>
+                        <option value="john">John</option>
+                        <option value="romans">Romans</option>
+                        <option value="revelation">Revelation</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- All 5 Default Books -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-blue-500">
@@ -59,7 +73,7 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Genesis 1:1-3</h3>
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <button id="explain-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
                         Explain This
                     </button>
                 </div>
@@ -119,17 +133,29 @@
     </div>
 
     <script>
-// Dark/Light Mode Toggle - FIXED VERSION
-const toggleButton = document.querySelector('nav button');
-toggleButton.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    const icon = toggleButton.querySelector('i');
-    if (document.documentElement.classList.contains('dark')) {
-        icon.className = 'fas fa-sun text-yellow-400';
-    } else {
-        icon.className = 'fas fa-moon text-gray-600';
-    }
-});
+        // Dark/Light Mode Toggle - FIXED
+        const toggleButton = document.getElementById('theme-toggle');
+        toggleButton.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const icon = toggleButton.querySelector('i');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.className = 'fas fa-sun text-yellow-400';
+            } else {
+                icon.className = 'fas fa-moon text-gray-600';
+            }
+        });
+
+        // Book Select Dropdown
+        const bookSelect = document.getElementById('book-select');
+        bookSelect.addEventListener('change', function() {
+            if (this.value) {
+                addMessage(`I'd like to add ${this.value} to my library`, true);
+                setTimeout(() => {
+                    addMessage(`In the full app, ${this.value.charAt(0).toUpperCase() + this.value.slice(1)} would be added to your library! For now, this is a demo of the feature.`);
+                }, 1000);
+                this.value = ''; // Reset dropdown
+            }
+        });
 
         // Curated Content Libraries
         const jokes = [
@@ -216,6 +242,8 @@ toggleButton.addEventListener('click', () => {
                         response = "That's wonderful you're seeking Jesus! You can pray: 'Lord Jesus, I believe You died for my sins. Come into my heart and save me.' Then please find a local church to help you grow!";
                     } else if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
                         response = "Hello! I'm Koinonia, your spiritual companion. I can help you study the Bible, pray, or just listen. What's on your heart today?";
+                    } else if (message.toLowerCase().includes('genesis')) {
+                        response = "Genesis 1:1-3 shows us God's incredible power in creating everything from nothing. He spoke light into existence, bringing order from chaos. This reminds us that the same God can bring light and order to our lives today!";
                     }
                     
                     addMessage(response);
@@ -238,10 +266,10 @@ toggleButton.addEventListener('click', () => {
         });
 
         // Explain button functionality
-        document.querySelector('#reader-section button').addEventListener('click', () => {
+        document.getElementById('explain-btn').addEventListener('click', () => {
             addMessage("Can you explain Genesis 1:1-3?", true);
             setTimeout(() => {
-                addMessage("In the full app, I would provide a detailed explanation of creation, God's power, and the significance of light representing God's order and goodness. This passage shows God's intentionality in creating everything from nothing.");
+                addMessage("Genesis 1:1-3 reveals God's sovereign power in creation. He speaks light into existence, transforming chaos into order. This shows us that:\n\n• God is eternal and all-powerful\n• His Word has creative authority\n• He brings light and life where there was darkness\n• The same power that created the universe is available to transform our lives today");
             }, 1000);
         });
     </script>
@@ -258,6 +286,19 @@ toggleButton.addEventListener('click', () => {
         }
         #votd-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        /* Custom dropdown styling */
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .dark select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23d1d5db' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
         }
     </style>
 </body>
