@@ -30,18 +30,10 @@
         <section id="library-section" class="mb-12">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Your Library</h2>
-                <div class="relative">
-                    <select id="book-select" class="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 pr-8 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">Add more books...</option>
-                        <option value="exodus">Exodus</option>
-                        <option value="john">John</option>
-                        <option value="romans">Romans</option>
-                        <option value="revelation">Revelation</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
+                <button id="explore-books-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
+                    <i class="fas fa-plus"></i>
+                    <span>Explore More Books</span>
+                </button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- All 5 Default Books -->
@@ -67,6 +59,60 @@
                 </div>
             </div>
         </section>
+
+        <!-- Books Modal -->
+        <div id="books-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-hidden">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Add Books to Your Library</h3>
+                        <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <input type="text" id="book-search" placeholder="Search books..." class="w-full mt-4 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                </div>
+                <div class="p-6 overflow-y-auto max-h-[60vh]">
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Gospels</h4>
+                            <div class="grid grid-cols-1 gap-2">
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                                    <span class="text-gray-900 dark:text-white">Matthew</span>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="matthew">Install</button>
+                                </div>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                                    <span class="text-gray-900 dark:text-white">Mark</span>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="mark">Install</button>
+                                </div>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                                    <span class="text-gray-900 dark:text-white">John</span>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="john">Install</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Letters</h4>
+                            <div class="grid grid-cols-1 gap-2">
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                                    <span class="text-gray-900 dark:text-white">Romans</span>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="romans">Install</button>
+                                </div>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                                    <span class="text-gray-900 dark:text-white">1 Corinthians</span>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="1corinthians">Install</button>
+                                </div>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                                    <span class="text-gray-900 dark:text-white">Revelation</span>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="revelation">Install</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Reader Section -->
         <section id="reader-section" class="mb-12">
@@ -134,27 +180,79 @@
 
     <script>
         // Dark/Light Mode Toggle - FIXED
-        const toggleButton = document.getElementById('theme-toggle');
-        toggleButton.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            const icon = toggleButton.querySelector('i');
-            if (document.documentElement.classList.contains('dark')) {
-                icon.className = 'fas fa-sun text-yellow-400';
-            } else {
-                icon.className = 'fas fa-moon text-gray-600';
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('theme-toggle');
+            if (toggleButton) {
+                toggleButton.addEventListener('click', function() {
+                    const html = document.documentElement;
+                    html.classList.toggle('dark');
+                    
+                    const icon = this.querySelector('i');
+                    if (html.classList.contains('dark')) {
+                        icon.className = 'fas fa-sun text-yellow-400';
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        icon.className = 'fas fa-moon text-gray-600';
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+
+                // Check for saved theme
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    toggleButton.querySelector('i').className = 'fas fa-sun text-yellow-400';
+                }
             }
         });
 
-        // Book Select Dropdown
-        const bookSelect = document.getElementById('book-select');
-        bookSelect.addEventListener('change', function() {
-            if (this.value) {
-                addMessage(`I'd like to add ${this.value} to my library`, true);
-                setTimeout(() => {
-                    addMessage(`In the full app, ${this.value.charAt(0).toUpperCase() + this.value.slice(1)} would be added to your library! For now, this is a demo of the feature.`);
-                }, 1000);
-                this.value = ''; // Reset dropdown
+        // Books Modal Functionality
+        const exploreBtn = document.getElementById('explore-books-btn');
+        const booksModal = document.getElementById('books-modal');
+        const closeModal = document.getElementById('close-modal');
+        const bookSearch = document.getElementById('book-search');
+
+        exploreBtn.addEventListener('click', () => {
+            booksModal.classList.remove('hidden');
+        });
+
+        closeModal.addEventListener('click', () => {
+            booksModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        booksModal.addEventListener('click', (e) => {
+            if (e.target === booksModal) {
+                booksModal.classList.add('hidden');
             }
+        });
+
+        // Install book buttons
+        document.querySelectorAll('.install-book-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const book = this.getAttribute('data-book');
+                addMessage(`I'd like to install ${book} to my library`, true);
+                setTimeout(() => {
+                    addMessage(`Great choice! ${book.charAt(0).toUpperCase() + book.slice(1)} has been added to your library. You can now read and study it.`);
+                    booksModal.classList.add('hidden');
+                }, 1000);
+            });
+        });
+
+        // Book search functionality
+        bookSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const bookItems = document.querySelectorAll('.install-book-btn');
+            
+            bookItems.forEach(item => {
+                const bookName = item.getAttribute('data-book');
+                const parent = item.closest('.flex');
+                if (bookName.includes(searchTerm) || searchTerm === '') {
+                    parent.style.display = 'flex';
+                } else {
+                    parent.style.display = 'none';
+                }
+            });
         });
 
         // Curated Content Libraries
@@ -286,19 +384,6 @@
         }
         #votd-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        /* Custom dropdown styling */
-        select {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
-            padding-right: 2.5rem;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .dark select {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23d1d5db' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
         }
     </style>
 </body>
