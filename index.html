@@ -5,19 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anchorite - Your Spiritual Companion</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .quick-action-btn {
+            @apply px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors;
+        }
+        .book-card {
+            @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 cursor-pointer transition-transform hover:scale-105;
+        }
+        #votd-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
     <!-- Navigation -->
-    <nav class="bg-white dark:bg-gray-800 shadow-sm">
+    <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <h1 class="text-xl font-bold text-gray-900 dark:text-white">Anchorite</h1>
                 </div>
-                <div class="flex space-x-4">
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <i class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
+                <div class="flex space-x-4 items-center">
+                    <span class="text-sm text-gray-600 dark:text-gray-300 hidden md:block">Your Spiritual Companion</span>
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-moon text-gray-600 dark:text-yellow-400"></i>
                     </button>
                 </div>
             </div>
@@ -28,7 +45,7 @@
     <div class="max-w-4xl mx-auto py-8 px-4">
         <!-- Library Section -->
         <section id="library-section" class="mb-12">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Your Library</h2>
                 <button id="explore-books-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
                     <i class="fas fa-plus"></i>
@@ -37,75 +54,113 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- All 5 Default Books -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                <div class="book-card border-l-4 border-blue-500" data-book="genesis">
                     <h3 class="font-semibold text-gray-900 dark:text-white">Genesis</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">The Book of Beginnings</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">50 chapters</span>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Installed</span>
+                    </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-green-500">
+                <div class="book-card border-l-4 border-green-500" data-book="psalms">
                     <h3 class="font-semibold text-gray-900 dark:text-white">Psalms</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Book of Worship & Emotion</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">150 chapters</span>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Installed</span>
+                    </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+                <div class="book-card border-l-4 border-purple-500" data-book="isaiah">
                     <h3 class="font-semibold text-gray-900 dark:text-white">Isaiah</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Book of Redemption & Hope</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">66 chapters</span>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Installed</span>
+                    </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+                <div class="book-card border-l-4 border-orange-500" data-book="luke">
                     <h3 class="font-semibold text-gray-900 dark:text-white">Luke</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">The Compassionate Christ</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">24 chapters</span>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Installed</span>
+                    </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-red-500">
+                <div class="book-card border-l-4 border-red-500" data-book="ephesians">
                     <h3 class="font-semibold text-gray-900 dark:text-white">Ephesians</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Identity & Purpose in Christ</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">6 chapters</span>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Installed</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Books Modal -->
-        <div id="books-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-hidden">
+        <div id="books-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
                 <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                     <div class="flex justify-between items-center">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white">Add Books to Your Library</h3>
-                        <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                            <i class="fas fa-times text-xl"></i>
+                        <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl">
+                            <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <input type="text" id="book-search" placeholder="Search books..." class="w-full mt-4 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <input type="text" id="book-search" placeholder="Search books..." class="w-full mt-4 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div class="p-6 overflow-y-auto max-h-[60vh]">
-                    <div class="space-y-4">
+                    <div class="space-y-6">
                         <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Gospels</h4>
-                            <div class="grid grid-cols-1 gap-2">
-                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                                    <span class="text-gray-900 dark:text-white">Matthew</span>
-                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="matthew">Install</button>
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-3 text-lg border-b border-gray-200 dark:border-gray-700 pb-2">Gospels</h4>
+                            <div class="grid grid-cols-1 gap-3">
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div>
+                                        <span class="text-gray-900 dark:text-white font-medium">Matthew</span>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">The King and His Kingdom</p>
+                                    </div>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors" data-book="matthew">Install</button>
                                 </div>
-                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                                    <span class="text-gray-900 dark:text-white">Mark</span>
-                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="mark">Install</button>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div>
+                                        <span class="text-gray-900 dark:text-white font-medium">Mark</span>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">The Servant and His Service</p>
+                                    </div>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors" data-book="mark">Install</button>
                                 </div>
-                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                                    <span class="text-gray-900 dark:text-white">John</span>
-                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="john">Install</button>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div>
+                                        <span class="text-gray-900 dark:text-white font-medium">John</span>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">The Son of God and Eternal Life</p>
+                                    </div>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors" data-book="john">Install</button>
                                 </div>
                             </div>
                         </div>
                         
                         <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Letters</h4>
-                            <div class="grid grid-cols-1 gap-2">
-                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                                    <span class="text-gray-900 dark:text-white">Romans</span>
-                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="romans">Install</button>
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-3 text-lg border-b border-gray-200 dark:border-gray-700 pb-2">Letters</h4>
+                            <div class="grid grid-cols-1 gap-3">
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div>
+                                        <span class="text-gray-900 dark:text-white font-medium">Romans</span>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">The Righteousness of God</p>
+                                    </div>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors" data-book="romans">Install</button>
                                 </div>
-                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                                    <span class="text-gray-900 dark:text-white">1 Corinthians</span>
-                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="1corinthians">Install</button>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div>
+                                        <span class="text-gray-900 dark:text-white font-medium">1 Corinthians</span>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Order in the Church</p>
+                                    </div>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors" data-book="1corinthians">Install</button>
                                 </div>
-                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-                                    <span class="text-gray-900 dark:text-white">Revelation</span>
-                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm" data-book="revelation">Install</button>
+                                <div class="flex justify-between items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div>
+                                        <span class="text-gray-900 dark:text-white font-medium">Revelation</span>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">The Unveiling of Jesus Christ</p>
+                                    </div>
+                                    <button class="install-book-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition-colors" data-book="revelation">Install</button>
                                 </div>
                             </div>
                         </div>
@@ -117,13 +172,24 @@
         <!-- Reader Section -->
         <section id="reader-section" class="mb-12">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Genesis 1:1-3</h3>
-                    <button id="explain-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
-                        Explain This
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+                    <div class="flex items-center space-x-4">
+                        <h3 id="current-book" class="text-lg font-semibold text-gray-900 dark:text-white">Genesis 1:1-3</h3>
+                        <div class="flex space-x-2">
+                            <button id="prev-chapter" class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-1 rounded transition-colors">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button id="next-chapter" class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-1 rounded transition-colors">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="explain-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Explain This</span>
                     </button>
                 </div>
-                <div class="prose dark:prose-invert max-w-none">
+                <div id="bible-content" class="prose dark:prose-invert max-w-none">
                     <p class="text-gray-700 dark:text-gray-300 mb-3"><span class="font-semibold">1</span> In the beginning God created the heaven and the earth.</p>
                     <p class="text-gray-700 dark:text-gray-300 mb-3"><span class="font-semibold">2</span> And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.</p>
                     <p class="text-gray-700 dark:text-gray-300"><span class="font-semibold">3</span> And God said, Let there be light: and there was light.</p>
@@ -155,103 +221,290 @@
                             Send
                         </button>
                     </div>
-                    <div class="flex space-x-2 mt-2">
+                    <div class="flex flex-wrap gap-2 mt-2">
                         <button class="quick-action-btn" data-prompt="prayer">🙏 Prayer</button>
                         <button class="quick-action-btn" data-prompt="joke">😄 Joke</button>
                         <button class="quick-action-btn" data-prompt="affirmation">⚓ Truth</button>
+                        <button class="quick-action-btn" data-prompt="healing">❤️ Healing Prayer</button>
+                        <button class="quick-action-btn" data-prompt="salvation">✝️ Salvation</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Verse of the Day Section -->
-        <section id="votd-section" class="mt-12 p-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-lg text-white">
+        <section id="votd-section" class="mt-12 p-6 rounded-lg shadow-lg text-white">
             <h3 class="text-lg font-semibold mb-2">Verse of the Day</h3>
-            <p class="text-xl italic mb-2">"For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope."</p>
-            <p class="text-sm opacity-90">- Jeremiah 29:11</p>
-            <div class="flex justify-between items-center mt-4">
-                <button class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                    Share This Light
+            <p id="votd-text" class="text-xl italic mb-2">"For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope."</p>
+            <p id="votd-ref" class="text-sm opacity-90">- Jeremiah 29:11</p>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-4">
+                <button id="share-verse" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center space-x-2">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Share This Light</span>
                 </button>
-                <span class="text-sm opacity-75">Hidden signature included when shared</span>
+                <span class="text-sm opacity-75">App signature included when shared</span>
             </div>
         </section>
     </div>
 
     <script>
-        // Dark/Light Mode Toggle - FIXED
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('theme-toggle');
-            if (toggleButton) {
-                toggleButton.addEventListener('click', function() {
-                    const html = document.documentElement;
-                    html.classList.toggle('dark');
-                    
-                    const icon = this.querySelector('i');
-                    if (html.classList.contains('dark')) {
-                        icon.className = 'fas fa-sun text-yellow-400';
-                        localStorage.setItem('theme', 'dark');
-                    } else {
-                        icon.className = 'fas fa-moon text-gray-600';
-                        localStorage.setItem('theme', 'light');
-                    }
-                });
-
-                // Check for saved theme
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    toggleButton.querySelector('i').className = 'fas fa-sun text-yellow-400';
+        // App State
+        let currentBook = 'genesis';
+        let currentChapter = 1;
+        
+        // Bible content database (simplified for demo)
+        const bibleContent = {
+            genesis: {
+                1: {
+                    verses: [
+                        "In the beginning God created the heaven and the earth.",
+                        "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.",
+                        "And God said, Let there be light: and there was light.",
+                        "And God saw the light, that it was good: and God divided the light from the darkness.",
+                        "And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day."
+                    ]
+                },
+                2: {
+                    verses: [
+                        "Thus the heavens and the earth were finished, and all the host of them.",
+                        "And on the seventh day God ended his work which he had made; and he rested on the seventh day from all his work which he had made.",
+                        "And God blessed the seventh day, and sanctified it: because that in it he had rested from all his work which God created and made."
+                    ]
+                }
+            },
+            psalms: {
+                1: {
+                    verses: [
+                        "Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful.",
+                        "But his delight is in the law of the Lord; and in his law doth he meditate day and night.",
+                        "And he shall be like a tree planted by the rivers of water, that bringeth forth his fruit in his season; his leaf also shall not wither; and whatsoever he doeth shall prosper."
+                    ]
+                },
+                23: {
+                    verses: [
+                        "The Lord is my shepherd; I shall not want.",
+                        "He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
+                        "He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake."
+                    ]
+                }
+            },
+            isaiah: {
+                1: {
+                    verses: [
+                        "The vision of Isaiah the son of Amoz, which he saw concerning Judah and Jerusalem in the days of Uzziah, Jotham, Ahaz, and Hezekiah, kings of Judah.",
+                        "Hear, O heavens, and give ear, O earth: for the Lord hath spoken, I have nourished and brought up children, and they have rebelled against me.",
+                        "The ox knoweth his owner, and the ass his master's crib: but Israel doth not know, my people doth not consider."
+                    ]
+                }
+            },
+            luke: {
+                1: {
+                    verses: [
+                        "Forasmuch as many have taken in hand to set forth in order a declaration of those things which are most surely believed among us,",
+                        "Even as they delivered them unto us, which from the beginning were eyewitnesses, and ministers of the word;",
+                        "It seemed good to me also, having had perfect understanding of all things from the very first, to write unto thee in order, most excellent Theophilus,"
+                    ]
+                }
+            },
+            ephesians: {
+                1: {
+                    verses: [
+                        "Paul, an apostle of Jesus Christ by the will of God, to the saints which are at Ephesus, and to the faithful in Christ Jesus:",
+                        "Grace be to you, and peace, from God our Father, and from the Lord Jesus Christ.",
+                        "Blessed be the God and Father of our Lord Jesus Christ, who hath blessed us with all spiritual blessings in heavenly places in Christ:"
+                    ]
                 }
             }
-        });
+        };
 
-        // Books Modal Functionality
-        const exploreBtn = document.getElementById('explore-books-btn');
-        const booksModal = document.getElementById('books-modal');
-        const closeModal = document.getElementById('close-modal');
-        const bookSearch = document.getElementById('book-search');
+        // Book names mapping
+        const bookNames = {
+            genesis: "Genesis",
+            psalms: "Psalms", 
+            isaiah: "Isaiah",
+            luke: "Luke",
+            ephesians: "Ephesians",
+            matthew: "Matthew",
+            mark: "Mark",
+            john: "John",
+            romans: "Romans",
+            "1corinthians": "1 Corinthians",
+            revelation: "Revelation"
+        };
 
-        exploreBtn.addEventListener('click', () => {
-            booksModal.classList.remove('hidden');
-        });
-
-        closeModal.addEventListener('click', () => {
-            booksModal.classList.add('hidden');
-        });
-
-        // Close modal when clicking outside
-        booksModal.addEventListener('click', (e) => {
-            if (e.target === booksModal) {
-                booksModal.classList.add('hidden');
+        // Dark/Light Mode Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('theme-toggle');
+            
+            // Set initial theme based on system preference or localStorage
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.documentElement.classList.add('dark');
+                toggleButton.querySelector('i').className = 'fas fa-sun text-yellow-400';
             }
-        });
-
-        // Install book buttons
-        document.querySelectorAll('.install-book-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const book = this.getAttribute('data-book');
-                addMessage(`I'd like to install ${book} to my library`, true);
-                setTimeout(() => {
-                    addMessage(`Great choice! ${book.charAt(0).toUpperCase() + book.slice(1)} has been added to your library. You can now read and study it.`);
-                    booksModal.classList.add('hidden');
-                }, 1000);
+            
+            toggleButton.addEventListener('click', function() {
+                const html = document.documentElement;
+                const isDark = html.classList.toggle('dark');
+                
+                const icon = this.querySelector('i');
+                if (isDark) {
+                    icon.className = 'fas fa-sun text-yellow-400';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.className = 'fas fa-moon text-gray-600';
+                    localStorage.setItem('theme', 'light');
+                }
             });
         });
 
-        // Book search functionality
-        bookSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const bookItems = document.querySelectorAll('.install-book-btn');
+        // Make Library Books Clickable
+        document.addEventListener('DOMContentLoaded', function() {
+            const libraryBooks = document.querySelectorAll('.book-card');
+            libraryBooks.forEach(book => {
+                book.addEventListener('click', function() {
+                    const bookId = this.getAttribute('data-book');
+                    currentBook = bookId;
+                    currentChapter = 1;
+                    loadBibleContent(bookId, 1);
+                    
+                    // Update Koinonia context
+                    addMessage(`I'm now reading ${bookNames[bookId]}`, true);
+                    setTimeout(() => {
+                        const bookDescriptions = {
+                            'genesis': "Genesis reveals God's power in creation and His covenant with Abraham.",
+                            'psalms': "Psalms contains heartfelt prayers, praises, and honest emotions directed to God.",
+                            'isaiah': "Isaiah prophesies about the coming Messiah and God's plan of redemption.",
+                            'luke': "Luke presents Jesus as the compassionate Savior who cares for the outcast.",
+                            'ephesians': "Ephesians explains our identity and purpose in Christ."
+                        };
+                        addMessage(`Excellent choice! ${bookNames[bookId]} is a powerful book. ${bookDescriptions[bookId] || 'Would you like me to explain any part of it?'}`);
+                    }, 1000);
+                });
+            });
+        });
+
+        // Load Bible content
+        function loadBibleContent(book, chapter) {
+            const content = bibleContent[book]?.[chapter];
+            const bookName = bookNames[book];
             
-            bookItems.forEach(item => {
-                const bookName = item.getAttribute('data-book');
-                const parent = item.closest('.flex');
-                if (bookName.includes(searchTerm) || searchTerm === '') {
-                    parent.style.display = 'flex';
-                } else {
-                    parent.style.display = 'none';
+            if (content) {
+                document.getElementById('current-book').textContent = `${bookName} ${chapter}:1-${content.verses.length}`;
+                
+                const bibleContentEl = document.getElementById('bible-content');
+                bibleContentEl.innerHTML = '';
+                
+                content.verses.forEach((verse, index) => {
+                    const verseEl = document.createElement('p');
+                    verseEl.className = 'text-gray-700 dark:text-gray-300 mb-3';
+                    verseEl.innerHTML = `<span class="font-semibold">${index + 1}</span> ${verse}`;
+                    bibleContentEl.appendChild(verseEl);
+                });
+            } else {
+                document.getElementById('current-book').textContent = `${bookName} ${chapter}`;
+                document.getElementById('bible-content').innerHTML = '<p class="text-gray-700 dark:text-gray-300">Content not available in this demo.</p>';
+            }
+            
+            // Update chapter navigation buttons
+            updateChapterNavigation(book, chapter);
+        }
+
+        // Update chapter navigation
+        function updateChapterNavigation(book, chapter) {
+            const prevBtn = document.getElementById('prev-chapter');
+            const nextBtn = document.getElementById('next-chapter');
+            
+            prevBtn.disabled = chapter <= 1;
+            nextBtn.disabled = !bibleContent[book]?.[chapter + 1];
+            
+            if (chapter <= 1) {
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            
+            if (!bibleContent[book]?.[chapter + 1]) {
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // Chapter navigation
+        document.getElementById('prev-chapter').addEventListener('click', function() {
+            if (currentChapter > 1) {
+                currentChapter--;
+                loadBibleContent(currentBook, currentChapter);
+            }
+        });
+
+        document.getElementById('next-chapter').addEventListener('click', function() {
+            if (bibleContent[currentBook]?.[currentChapter + 1]) {
+                currentChapter++;
+                loadBibleContent(currentBook, currentChapter);
+            }
+        });
+
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const exploreBtn = document.getElementById('explore-books-btn');
+            const booksModal = document.getElementById('books-modal');
+            const closeModal = document.getElementById('close-modal');
+
+            exploreBtn.addEventListener('click', () => {
+                booksModal.classList.remove('hidden');
+            });
+
+            closeModal.addEventListener('click', () => {
+                booksModal.classList.add('hidden');
+            });
+
+            booksModal.addEventListener('click', (e) => {
+                if (e.target === booksModal) {
+                    booksModal.classList.add('hidden');
                 }
+            });
+
+            // Book search functionality
+            const bookSearch = document.getElementById('book-search');
+            bookSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const bookItems = document.querySelectorAll('.install-book-btn');
+                
+                bookItems.forEach(item => {
+                    const bookName = item.getAttribute('data-book');
+                    const displayName = bookNames[bookName].toLowerCase();
+                    const parent = item.closest('.flex');
+                    if (displayName.includes(searchTerm) || searchTerm === '') {
+                        parent.style.display = 'flex';
+                    } else {
+                        parent.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Install book functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const installButtons = document.querySelectorAll('.install-book-btn');
+            installButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event bubbling
+                    const bookId = this.getAttribute('data-book');
+                    const displayName = bookNames[bookId];
+                    
+                    addMessage(`I'd like to install ${displayName} to my library`, true);
+                    setTimeout(() => {
+                        addMessage(`Wonderful! ${displayName} has been added to your library. You can now click on it to start reading.`);
+                        
+                        // In a real app, we would add the book to the user's library
+                        // For this demo, we'll just close the modal
+                        document.getElementById('books-modal').classList.add('hidden');
+                    }, 1000);
+                });
             });
         });
 
@@ -277,6 +530,53 @@
             "Lord Jesus, thank You for Your constant presence. I ask for Your strength and comfort in this moment. Help us to rest in Your love and provision. Amen.",
             "Father God, the Great Physician, I ask for Your healing hand to be upon us. Restore strength, calm pain, and grant peaceful rest. Surround us with Your comforting presence. In Jesus' name, Amen."
         ];
+
+        const healingPrayers = [
+            "Lord Jesus, You are the Great Physician. I ask for Your healing touch upon this body. Restore health, strength, and vitality according to Your perfect will. Amen.",
+            "Heavenly Father, I come before You asking for healing and restoration. Please touch every cell, every organ, and bring complete wholeness. In Jesus' name, Amen."
+        ];
+
+        const salvationPrayers = [
+            "Lord Jesus, I believe You died for my sins and rose from the dead. I confess I am a sinner and need Your salvation. Come into my heart, forgive my sins, and be my Lord and Savior. Amen.",
+            "Heavenly Father, I accept Your gift of salvation through Jesus Christ. I believe in His death and resurrection for my sins. Please fill me with Your Holy Spirit and make me new. Amen."
+        ];
+
+        // Verse of the Day
+        const votdVerses = [
+            { text: "For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.", reference: "Jeremiah 29:11" },
+            { text: "I can do all things through him who strengthens me.", reference: "Philippians 4:13" },
+            { text: "The Lord is my shepherd; I shall not want.", reference: "Psalm 23:1" },
+            { text: "Cast all your anxiety on him because he cares for you.", reference: "1 Peter 5:7" },
+            { text: "Trust in the Lord with all your heart, and do not lean on your own understanding.", reference: "Proverbs 3:5" }
+        ];
+
+        // Set random Verse of the Day
+        function setRandomVOTD() {
+            const randomIndex = Math.floor(Math.random() * votdVerses.length);
+            const votd = votdVerses[randomIndex];
+            document.getElementById('votd-text').textContent = `"${votd.text}"`;
+            document.getElementById('votd-ref').textContent = `- ${votd.reference}`;
+        }
+
+        // Share verse functionality
+        document.getElementById('share-verse').addEventListener('click', function() {
+            const votdText = document.getElementById('votd-text').textContent;
+            const votdRef = document.getElementById('votd-ref').textContent;
+            
+            const shareText = `${votdText} ${votdRef}\n\nShared via Anchorite - Your Spiritual Companion`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Verse of the Day',
+                    text: shareText
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Verse copied to clipboard!');
+                });
+            }
+        });
 
         // Chat Functionality
         const chatMessages = document.getElementById('chat-messages');
@@ -313,6 +613,12 @@
                     const aff = affirmations[Math.floor(Math.random() * affirmations.length)];
                     response = `⚓ ${aff.statement} (${aff.verse})\n\n${aff.reflection}`;
                     break;
+                case 'healing':
+                    response = healingPrayers[Math.floor(Math.random() * healingPrayers.length)];
+                    break;
+                case 'salvation':
+                    response = `If you're ready to accept Jesus as your Savior, you can pray this prayer:\n\n${salvationPrayers[Math.floor(Math.random() * salvationPrayers.length)]}\n\nAfter praying, please connect with a local church for discipleship and growth.`;
+                    break;
             }
             addMessage(response);
         }
@@ -329,19 +635,24 @@
                 
                 // Simulate AI response
                 setTimeout(() => {
-                    let response = "I hear you. While I'm a simplified demo, in the full app I'd provide a thoughtful, biblically-grounded response to help you with that.";
+                    let response = "I hear you. In the full app, I'd provide a thoughtful, biblically-grounded response to help you with that.";
                     
                     // Simple keyword responses for demo
-                    if (message.toLowerCase().includes('stress') || message.toLowerCase().includes('overwhelmed')) {
+                    const lowerMessage = message.toLowerCase();
+                    if (lowerMessage.includes('stress') || lowerMessage.includes('overwhelmed')) {
                         response = "I hear that you're feeling stressed. Would you like to hear a lighthearted joke to reset, or shall we pray about it together?";
-                    } else if (message.toLowerCase().includes('sick') || message.toLowerCase().includes('heal')) {
+                    } else if (lowerMessage.includes('sick') || lowerMessage.includes('heal')) {
                         response = "I'm sorry you're not feeling well. Let me pray for you: 'Lord, please bring healing and comfort. Give wisdom and guide to medical help if needed. Amen.' Remember to rest and see a doctor if symptoms persist.";
-                    } else if (message.toLowerCase().includes('save') || message.toLowerCase().includes('jesus')) {
+                    } else if (lowerMessage.includes('save') || lowerMessage.includes('jesus')) {
                         response = "That's wonderful you're seeking Jesus! You can pray: 'Lord Jesus, I believe You died for my sins. Come into my heart and save me.' Then please find a local church to help you grow!";
-                    } else if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                    } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
                         response = "Hello! I'm Koinonia, your spiritual companion. I can help you study the Bible, pray, or just listen. What's on your heart today?";
-                    } else if (message.toLowerCase().includes('genesis')) {
-                        response = "Genesis 1:1-3 shows us God's incredible power in creating everything from nothing. He spoke light into existence, bringing order from chaos. This reminds us that the same God can bring light and order to our lives today!";
+                    } else if (lowerMessage.includes('genesis')) {
+                        response = "Genesis shows us God's incredible power in creation and His faithfulness to His promises. Would you like me to explain a specific passage?";
+                    } else if (lowerMessage.includes('psalm') || lowerMessage.includes('psalms')) {
+                        response = "The Psalms are beautiful expressions of worship, lament, and trust in God. They show us we can bring all our emotions to God.";
+                    } else if (lowerMessage.includes('isaiah')) {
+                        response = "Isaiah contains powerful prophecies about the coming Messiah and God's plan of redemption. It's a book full of hope and promise.";
                     }
                     
                     addMessage(response);
@@ -365,26 +676,24 @@
 
         // Explain button functionality
         document.getElementById('explain-btn').addEventListener('click', () => {
-            addMessage("Can you explain Genesis 1:1-3?", true);
+            const bookName = bookNames[currentBook];
+            addMessage(`Can you explain ${bookName} ${currentChapter}?`, true);
             setTimeout(() => {
-                addMessage("Genesis 1:1-3 reveals God's sovereign power in creation. He speaks light into existence, transforming chaos into order. This shows us that:\n\n• God is eternal and all-powerful\n• His Word has creative authority\n• He brings light and life where there was darkness\n• The same power that created the universe is available to transform our lives today");
+                const explanations = {
+                    genesis: "Genesis is the book of beginnings, showing God's creative power and His establishment of covenant relationships with humanity.",
+                    psalms: "The Psalms are heartfelt prayers and songs that express the full range of human emotion while maintaining faith in God's character.",
+                    isaiah: "Isaiah contains prophecies about the coming Messiah and God's plan to redeem His people, offering hope amidst judgment.",
+                    luke: "Luke presents Jesus as the compassionate Savior who reaches out to the marginalized and demonstrates God's love for all people.",
+                    ephesians: "Ephesians explains our spiritual blessings in Christ, our unity as the church, and how to live out our faith practically."
+                };
+                
+                addMessage(`${bookName} ${currentChapter} - ${explanations[currentBook] || "This passage reveals God's character and His plan for humanity."}`);
             }, 1000);
         });
-    </script>
 
-    <style>
-        .quick-action-btn {
-            @apply px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors;
-        }
-        .prose {
-            @apply text-gray-700 dark:text-gray-300;
-        }
-        .prose p {
-            @apply mb-3;
-        }
-        #votd-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-    </style>
+        // Initialize the app
+        setRandomVOTD();
+        loadBibleContent(currentBook, currentChapter);
+    </script>
 </body>
 </html>
